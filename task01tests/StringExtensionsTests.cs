@@ -52,4 +52,12 @@ public class StringExtensionsTests
         bool result = text.IsPalindrome();
         Assert.True(result);
     }
+
+    [Fact]
+    public void CheckPalindrome_ShouldReturnTrueForSingleCharacter()
+    {
+        string text = "a";
+        bool result = text.IsPalindrome();
+        Assert.True(result);
+    }
 }
