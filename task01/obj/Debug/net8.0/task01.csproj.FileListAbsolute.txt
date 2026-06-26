@@ -9,3 +9,4 @@
 /home/mattraxer/Practice2026/task01/obj/Debug/net8.0/refint/task01.dll
 /home/mattraxer/Practice2026/task01/obj/Debug/net8.0/task01.pdb
 /home/mattraxer/Practice2026/task01/obj/Debug/net8.0/ref/task01.dll
+/home/mattraxer/Practice2026/task01/obj/Debug/net8.0/task01.sourcelink.json
