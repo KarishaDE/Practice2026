@@ -1,0 +1,16 @@
+/home/mattraxer/Practice2026/task10/Extensions/Registrar/bin/Debug/net8.0/Registrar.deps.json
+/home/mattraxer/Practice2026/task10/Extensions/Registrar/bin/Debug/net8.0/Registrar.dll
+/home/mattraxer/Practice2026/task10/Extensions/Registrar/bin/Debug/net8.0/Registrar.pdb
+/home/mattraxer/Practice2026/task10/Extensions/Registrar/bin/Debug/net8.0/Core.dll
+/home/mattraxer/Practice2026/task10/Extensions/Registrar/bin/Debug/net8.0/Core.pdb
+/home/mattraxer/Practice2026/task10/Extensions/Registrar/obj/Debug/net8.0/Registrar.csproj.AssemblyReference.cache
+/home/mattraxer/Practice2026/task10/Extensions/Registrar/obj/Debug/net8.0/Registrar.GeneratedMSBuildEditorConfig.editorconfig
+/home/mattraxer/Practice2026/task10/Extensions/Registrar/obj/Debug/net8.0/Registrar.AssemblyInfoInputs.cache
+/home/mattraxer/Practice2026/task10/Extensions/Registrar/obj/Debug/net8.0/Registrar.AssemblyInfo.cs
+/home/mattraxer/Practice2026/task10/Extensions/Registrar/obj/Debug/net8.0/Registrar.csproj.CoreCompileInputs.cache
+/home/mattraxer/Practice2026/task10/Extensions/Registrar/obj/Debug/net8.0/Registrar.sourcelink.json
+/home/mattraxer/Practice2026/task10/Extensions/Registrar/obj/Debug/net8.0/Registrar.csproj.CopyComplete
+/home/mattraxer/Practice2026/task10/Extensions/Registrar/obj/Debug/net8.0/Registrar.dll
+/home/mattraxer/Practice2026/task10/Extensions/Registrar/obj/Debug/net8.0/refint/Registrar.dll
+/home/mattraxer/Practice2026/task10/Extensions/Registrar/obj/Debug/net8.0/Registrar.pdb
+/home/mattraxer/Practice2026/task10/Extensions/Registrar/obj/Debug/net8.0/ref/Registrar.dll
