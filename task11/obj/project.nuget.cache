@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "mhMnA4Ihu+pO7MPpVGXIb8jKiFGkmQiTI6f6DYCvGJ4yAr+1LTWm+3yyNdIM/6Upt3rDSX+4ZKywluxVsd1dKA==",
+  "success": true,
+  "projectFilePath": "/home/mattraxer/Practice2026/task11/task11.csproj",
+  "expectedPackageFiles": [
+    "/home/mattraxer/.nuget/packages/microsoft.codeanalysis.analyzers/5.3.0/microsoft.codeanalysis.analyzers.5.3.0.nupkg.sha512",
+    "/home/mattraxer/.nuget/packages/microsoft.codeanalysis.common/5.6.0/microsoft.codeanalysis.common.5.6.0.nupkg.sha512",
+    "/home/mattraxer/.nuget/packages/microsoft.codeanalysis.csharp/5.6.0/microsoft.codeanalysis.csharp.5.6.0.nupkg.sha512",
+    "/home/mattraxer/.nuget/packages/system.collections.immutable/10.0.1/system.collections.immutable.10.0.1.nupkg.sha512",
+    "/home/mattraxer/.nuget/packages/system.reflection.metadata/10.0.1/system.reflection.metadata.10.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

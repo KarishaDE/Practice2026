@@ -57,6 +57,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageService", "task10\Ex
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportMaker", "task10\Extensions\ReportMaker\ReportMaker.csproj", "{BE5C80AE-38A6-4765-ACDD-09F8172BFEFE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "task11", "task11\task11.csproj", "{546ADCFF-F77D-41FB-AE42-58E1F4B27253}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "task11tests", "task11tests\task11tests.csproj", "{E59703D2-1A71-47A3-9622-2C24FF4C6D01}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -162,6 +166,14 @@ Global
 		{BE5C80AE-38A6-4765-ACDD-09F8172BFEFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE5C80AE-38A6-4765-ACDD-09F8172BFEFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE5C80AE-38A6-4765-ACDD-09F8172BFEFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{546ADCFF-F77D-41FB-AE42-58E1F4B27253}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{546ADCFF-F77D-41FB-AE42-58E1F4B27253}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{546ADCFF-F77D-41FB-AE42-58E1F4B27253}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{546ADCFF-F77D-41FB-AE42-58E1F4B27253}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E59703D2-1A71-47A3-9622-2C24FF4C6D01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E59703D2-1A71-47A3-9622-2C24FF4C6D01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E59703D2-1A71-47A3-9622-2C24FF4C6D01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E59703D2-1A71-47A3-9622-2C24FF4C6D01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D8640423-716E-4658-AA28-34D472870A5A} = {B12985A3-E0BD-4772-A723-F0AA053749C6}
