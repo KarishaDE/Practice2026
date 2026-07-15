@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace task02;
 
 public class StudentService
@@ -10,39 +6,29 @@ public class StudentService
 
     public StudentService(List<Student> students) => _students = students;
 
-    public IEnumerable<Student> GetStudentsByFaculty(string faculty)
-    {
-        return _students.Where(student => student.Faculty.Equals(faculty));
-    }
+    // студенты указанного факультета
+    public IEnumerable<Student> GetStudentsByFaculty(string faculty) =>
+        _students.Where(student => student.Faculty == faculty);
 
-    public IEnumerable<Student> GetStudentsWithMinAverageGrade(double minAverageGrade)
-    {
-        return _students.Where(student => student.Grades.Average() >= minAverageGrade);
-    }
+    // студенты с нужным средним баллом
+    public IEnumerable<Student> GetStudentsWithMinAverageGrade(double minAverageGrade) =>
+        _students.Where(student => student.Grades.Average() >= minAverageGrade);
 
-    public IEnumerable<Student> GetStudentsOrderedByName()
-    {
-        return _students.OrderBy(student => student.Name);
-    }
+    // сортировка студентов по имени
+    public IEnumerable<Student> GetStudentsOrderedByName() =>
+        _students.OrderBy(student => student.Name);
 
-    public ILookup<string, Student> GroupStudentsByFaculty()
-    {
-        return _students.ToLookup(student => student.Faculty);
-    }
+    // группировка студентов по факультету
+    public ILookup<string, Student> GroupStudentsByFaculty() =>
+        _students.ToLookup(student => student.Faculty);
 
-    public string GetFacultyWithHighestAverageGrade()
-    {
-        var facultyAverages = _students
+    // факультет с самым высоким средним баллом
+    public string GetFacultyWithHighestAverageGrade() =>
+        _students
             .GroupBy(student => student.Faculty)
-            .Select(group => new
-            {
-                FacultyName = group.Key,
-                AverageScore = group.Average(student => student.Grades.Average())
-            });
-
-        return facultyAverages
-            .OrderByDescending(f => f.AverageScore)
+            .OrderByDescending(group => group
+                .SelectMany(student => student.Grades)
+                .Average())
             .First()
-            .FacultyName;
-    }
+            .Key;
 }
