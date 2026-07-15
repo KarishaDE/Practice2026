@@ -1,10 +1,14 @@
-﻿using System;
-using System.Linq;
-
 namespace task01;
 
+/// <summary>
+/// Provides helper methods for working with strings.
+/// </summary>
 public static class StringExtensions
 {
+    /// <summary>
+    /// Determines whether a string reads the same forwards and backwards,
+    /// ignoring letter case, whitespace, and punctuation.
+    /// </summary>
     public static bool IsPalindrome(this string input)
     {
         if (string.IsNullOrWhiteSpace(input))
@@ -12,14 +16,20 @@ public static class StringExtensions
             return false;
         }
 
-        var filtered = new string(
+        string filtered = new(
             input.ToLowerInvariant()
-                 .Where(ch => !char.IsWhiteSpace(ch) && !char.IsPunctuation(ch))
-                 .ToArray()
-        );
+                 .Where(character =>
+                     !char.IsWhiteSpace(character) &&
+                     !char.IsPunctuation(character))
+                 .ToArray());
 
-        var reversed = new string(filtered.Reverse().ToArray());
+        if (filtered.Length == 0)
+        {
+            return false;
+        }
 
-        return filtered == reversed;
+        string reversed = new(filtered.Reverse().ToArray());
+
+        return filtered.Equals(reversed, StringComparison.Ordinal);
     }
 }
