@@ -25,6 +25,7 @@
   <ItemGroup>
     <ProjectReference Include="..\FileSystemCommands\FileSystemCommands.csproj" />
     <ProjectReference Include="..\CommandLib\CommandLib.csproj" />
+    <ProjectReference Include="..\CommandRunner\CommandRunner.csproj" />
   </ItemGroup>
 
 </Project>

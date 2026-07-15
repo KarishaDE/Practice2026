@@ -1,43 +1,19 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
-using CommandLib;
+using CommandRunner;
 
-class Program
-{
-    static void Main(string[] args)
-    {
-        Console.WriteLine("Запуск динамической загрузки команд...\n");
+var directoryPath = args.Length > 0 ? args[0] : Directory.GetCurrentDirectory();
+var searchPattern = args.Length > 1 ? args[1] : "*.*";
+var libraryPath = Path.Combine(AppContext.BaseDirectory, "FileSystemCommands.dll");
 
-        string libraryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "FileSystemCommands.dll");
+var sizeCommand = CommandLoader.Load(
+    libraryPath,
+    "FileSystemCommands.DirectorySizeCommand",
+    directoryPath);
 
-        if (!File.Exists(libraryPath))
-        {
-            Console.WriteLine($"Ошибка: библиотека {libraryPath} не обнаружена!");
-            Console.WriteLine("Убедитесь, что проект FileSystemCommands собран.");
-            return;
-        }
+var findCommand = CommandLoader.Load(
+    libraryPath,
+    "FileSystemCommands.FindFilesCommand",
+    directoryPath,
+    searchPattern);
 
-        Console.WriteLine($"Подключаем библиотеку: {libraryPath}\n");
-
-        Assembly loadedAssembly = Assembly.LoadFrom(libraryPath);
-
-        ExecuteCommand(loadedAssembly, "FileSystemCommands.DirectorySizeCommand",
-            args.Length > 0 ? new object[] { args[0] } : new object[] { "." });
-
-        ExecuteCommand(loadedAssembly, "FileSystemCommands.FindFilesCommand",
-            args.Length > 0 ? new object[] { args[0], args.Length > 1 ? args[1] : "*.*" } : new object[] { ".", "*.*" });
-    }
-
-    private static void ExecuteCommand(Assembly assembly, string typeName, object[] constructorArgs)
-    {
-        Type commandType = assembly.GetType(typeName);
-        if (commandType is not null)
-        {
-            Console.WriteLine($"Команда: {typeName.Split('.')[1]}");
-            ICommand command = (ICommand)Activator.CreateInstance(commandType, constructorArgs);
-            command.Execute();
-            Console.WriteLine();
-        }
-    }
-}
+sizeCommand.Execute();
+findCommand.Execute();
