@@ -1,0 +1,164 @@
+\documentclass[14pt,a4paper]{extarticle}
+
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\setsansfont{Arial}
+\setmonofont{Courier New}
+
+\usepackage[russian]{babel}
+\usepackage{geometry}
+\geometry{left=30mm,right=15mm,top=20mm,bottom=20mm}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{indentfirst}
+\setlength{\parindent}{1.25cm}
+\setlength{\parskip}{0pt}
+
+\usepackage{titlesec}
+\titleformat{\section}{\normalfont\bfseries\centering\MakeUppercase}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\bfseries}{\thesubsubsection}{1em}{}
+\titlespacing*{\section}{0pt}{2.0ex}{1.5ex}
+\titlespacing*{\subsection}{0pt}{1.5ex}{1.0ex}
+
+\usepackage{enumitem}
+\setlist{nosep,leftmargin=1.25cm}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{ragged2e}
+\usepackage{seqsplit}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    citecolor=black,
+    pdfauthor={Студент первого курса},
+    pdftitle={Промежуточные отчёты по учебной практике}
+}
+\urlstyle{same}
+\setlength{\emergencystretch}{3em}
+
+\newcommand{\StudentName}{\underline{\hspace{7cm}}}
+\newcommand{\StudentGroup}{\underline{\hspace{4cm}}}
+\newcommand{\testname}[1]{{\ttfamily\scriptsize\expandafter\seqsplit\expandafter{\detokenize{#1}}}}
+\newcommand{\codebreak}[1]{{\ttfamily\expandafter\seqsplit\expandafter{\detokenize{#1}}}}
+\newcommand{\reporttableheader}{%
+    \toprule
+    \textbf{№} & \textbf{Тест} & \textbf{Проверяемый случай} & \textbf{Предусловие} & \textbf{Постусловие} \\
+    \midrule
+    \endfirsthead
+    \multicolumn{5}{c}{\small Продолжение таблицы} \\
+    \toprule
+    \textbf{№} & \textbf{Тест} & \textbf{Проверяемый случай} & \textbf{Предусловие} & \textbf{Постусловие} \\
+    \midrule
+    \endhead
+    \midrule
+    \multicolumn{5}{r}{\small Продолжение на следующей странице} \\
+    \endfoot
+    \bottomrule
+    \endlastfoot
+}
+
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+        Министерство науки и высшего образования Российской Федерации\\
+        Федеральное государственное автономное образовательное учреждение\\
+        высшего образования\\
+        «Омский государственный технический университет»\\[0.4cm]
+        Кафедра «Прикладная математика и фундаментальная информатика»
+    \end{center}
+
+    \vfill
+
+    \begin{center}
+        \textbf{ОТЧЁТ}\\[0.3cm]
+        по учебной практике\\[0.7cm]
+        \textbf{«ПРОМЕЖУТОЧНЫЕ ОТЧЁТЫ»}
+    \end{center}
+
+    \vfill
+
+    \begin{flushright}
+        \begin{minipage}{0.52\textwidth}
+            Выполнил(а): студент(ка) группы\\
+            \StudentGroup\\[0.35cm]
+            \StudentName\\[0.7cm]
+            Проверил: \underline{\hspace{5.6cm}}
+        \end{minipage}
+    \end{flushright}
+
+    \vfill
+
+    \begin{center}
+        Омск, 2026
+    \end{center}
+\end{titlepage}
+
+\setcounter{page}{2}
+\tableofcontents
+\clearpage
+
+\section*{Введение}
+\addcontentsline{toc}{section}{Введение}
+
+Настоящий отчёт содержит результаты рефлексивного анализа пяти заданий первой недели учебной практики по программированию на языке C\#. Цель отчёта состоит в систематизации выполненных действий, выявлении возникших затруднений и описании способов их преодоления. Отдельное внимание уделено роли модульного тестирования в обеспечении корректности программного кода.
+
+В ходе работы были последовательно изучены методы расширения, базовые операции LINQ, механизм итераторов, проектирование интерфейсов и средства рефлексии платформы .NET. Для заданий созданы библиотечные проекты и проекты модульных тестов. Автоматическая проверка настроена с помощью GitHub Actions. На момент подготовки отчёта общее решение содержит 32 успешно выполняемых теста.
+
+\begin{table}[h]
+    \centering
+    \caption{Состав выполненных работ первой недели}
+    \small
+    \begin{tabular}{>{\RaggedRight\arraybackslash}p{0.8cm} >{\RaggedRight\arraybackslash}p{7.6cm} >{\centering\arraybackslash}p{2cm} >{\centering\arraybackslash}p{2.7cm}}
+        \toprule
+        \textbf{№} & \textbf{Задание} & \textbf{Тестов} & \textbf{Результат CI} \\
+        \midrule
+        1 & Написание функции-расширения & 7 & успешно \\
+        2 & Введение в LINQ & 5 & успешно \\
+        3 & Итераторы в C\# & 5 & успешно \\
+        4 & Интерфейсы в C\# & 8 & успешно \\
+        5 & Изучение класса с помощью рефлексии & 7 & успешно \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\input{sections/reflection}
+\input{sections/tests}
+\input{sections/testing-analysis}
+\input{sections/report02}
+
+\clearpage
+\begin{thebibliography}{99}
+    \addcontentsline{toc}{section}{Список использованных источников}
+
+    \bibitem{ms-csharp}
+    Microsoft. Документация по C\# [Электронный ресурс]. URL: \url{https://learn.microsoft.com/ru-ru/dotnet/csharp/} (дата обращения: 15.07.2026).
+
+    \bibitem{ms-testing}
+    Microsoft. Модульное тестирование C\# в .NET с помощью dotnet test и xUnit [Электронный ресурс]. URL: \url{https://learn.microsoft.com/ru-ru/dotnet/core/testing/unit-testing-csharp-with-xunit} (дата обращения: 15.07.2026).
+
+    \bibitem{xunit}
+    xUnit.net. Официальная документация [Электронный ресурс]. URL: \url{https://xunit.net/} (дата обращения: 15.07.2026).
+
+    \bibitem{nunit}
+    NUnit. Официальная документация [Электронный ресурс]. URL: \url{https://docs.nunit.org/} (дата обращения: 15.07.2026).
+
+    \bibitem{reflection}
+    Microsoft. Рефлексия в .NET [Электронный ресурс]. URL: \url{https://learn.microsoft.com/ru-ru/dotnet/fundamentals/reflection/reflection} (дата обращения: 15.07.2026).
+
+    \bibitem{attributes}
+    Microsoft. Атрибуты и отражение в C\# [Электронный ресурс]. URL: \url{https://learn.microsoft.com/ru-ru/dotnet/csharp/advanced-topics/reflection-and-attributes/} (дата обращения: 15.07.2026).
+
+    \bibitem{loadfrom}
+    Microsoft. Метод Assembly.LoadFrom [Электронный ресурс]. URL: \url{https://learn.microsoft.com/ru-ru/dotnet/api/system.reflection.assembly.loadfrom} (дата обращения: 15.07.2026).
+
+    \bibitem{roslyn}
+    Microsoft. Пакет SDK для платформы компилятора .NET (API Roslyn) [Электронный ресурс]. URL: \url{https://learn.microsoft.com/ru-ru/dotnet/csharp/roslyn-sdk/} (дата обращения: 15.07.2026).
+\end{thebibliography}
+
+\end{document}
