@@ -1,11 +1,15 @@
 ﻿using System;
 using System.IO;
 using CommandLib;
+using task07;
 
 namespace FileSystemCommands;
 
+[DisplayName("Проверка каталога")]
+[Version(1, 0)]
 public static class DirectoryHelper
 {
+    [DisplayName("Проверить существование каталога")]
     public static bool Exists(string path, out string error)
     {
         if (!Directory.Exists(path))
@@ -13,11 +17,13 @@ public static class DirectoryHelper
             error = $"Директория не найдена: {path}";
             return false;
         }
-        error = null;
+        error = string.Empty;
         return true;
     }
 }
 
+[DisplayName("Вычисление размера каталога")]
+[Version(1, 0)]
 public class DirectorySizeCommand : ICommand
 {
     private readonly string _targetPath;
@@ -27,6 +33,7 @@ public class DirectorySizeCommand : ICommand
         _targetPath = targetPath;
     }
 
+    [DisplayName("Выполнить вычисление размера")]
     public void Execute()
     {
         if (!DirectoryHelper.Exists(_targetPath, out string error))
@@ -45,6 +52,8 @@ public class DirectorySizeCommand : ICommand
     }
 }
 
+[DisplayName("Поиск файлов по маске")]
+[Version(1, 0)]
 public class FindFilesCommand : ICommand
 {
     private readonly string _searchPath;
@@ -56,6 +65,7 @@ public class FindFilesCommand : ICommand
         _searchPattern = searchPattern;
     }
 
+    [DisplayName("Выполнить поиск файлов")]
     public void Execute()
     {
         if (!DirectoryHelper.Exists(_searchPath, out string error))
