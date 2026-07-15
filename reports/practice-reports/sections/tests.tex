@@ -1,0 +1,95 @@
+\clearpage
+\section{Перечень и назначение модульных тестов}
+
+Под предусловием далее понимается состояние тестовой среды и входных данных до вызова проверяемого метода. Постусловием является наблюдаемое состояние или возвращаемое значение после выполнения метода. Совокупность тестов покрывает основные сценарии, граничные случаи и существенные свойства реализованных классов.
+
+\subsection{Тесты задания «Написание функции-расширения»}
+
+{\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{>{\centering\arraybackslash}p{0.7cm} >{\RaggedRight\arraybackslash}p{3.5cm} >{\RaggedRight\arraybackslash}p{4.1cm} >{\RaggedRight\arraybackslash}p{3.3cm} >{\RaggedRight\arraybackslash}p{3.6cm}}
+\caption{Модульные тесты метода \texttt{IsPalindrome}}\\
+\reporttableheader
+1 & \testname{IsPalindrome_RussianPhrase_ReturnsTrue} & Подтверждает распознавание русской фразы-палиндрома с пробелами и разным регистром. & Задана строка «А роза упала на лапу Азора». & \texttt{IsPalindrome} возвращает \texttt{true}. \\
+2 & \testname{IsPalindrome_NotPalindrome_ReturnsFalse} & Проверяет отклонение обычной строки, не обладающей симметрией. & Задана строка «Hello, world!». & Метод возвращает \texttt{false}. \\
+3 & \testname{IsPalindrome_EmptyString_ReturnsFalse} & Покрывает граничный случай пустой входной строки. & Длина входной строки равна нулю. & Метод возвращает \texttt{false}; исключение не возникает. \\
+4 & \testname{IsPalindrome_WithPunctuation_IgnoresPunctuation} & Подтверждает исключение пунктуации и пробелов при анализе английской фразы. & Задана строка «Was it a car or a cat I saw?». & После нормализации строка распознаётся как палиндром; результат равен \texttt{true}. \\
+5 & \testname{IsPalindrome_DifferentLetterCase_IgnoresCase} & Проверяет независимость результата от регистра символов. & Задана палиндромная последовательность с чередованием прописных и строчных букв. & Метод возвращает \texttt{true}. \\
+6 & \testname{IsPalindrome_OnlyWhitespace_ReturnsFalse} & Покрывает строку, не содержащую значимых символов после удаления пробелов. & Вход состоит только из пробельных символов. & После очистки метод возвращает \texttt{false}. \\
+7 & \testname{IsPalindrome_OnlyPunctuation_ReturnsFalse} & Покрывает строку, состоящую только из знаков препинания. & Во входе отсутствуют буквы и цифры. & После удаления пунктуации метод возвращает \texttt{false}. \\
+\end{longtable}
+}
+
+\subsection{Тесты задания «Введение в LINQ»}
+
+Перед каждым тестом формируется единый набор из трёх студентов: Иван и Анна обучаются на факультете ФИТ, Пётр --- на факультете «Экономика». Для каждого студента заданы оценки, после чего создаётся экземпляр \texttt{StudentService}.
+
+{\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{>{\centering\arraybackslash}p{0.7cm} >{\RaggedRight\arraybackslash}p{3.5cm} >{\RaggedRight\arraybackslash}p{4.1cm} >{\RaggedRight\arraybackslash}p{3.3cm} >{\RaggedRight\arraybackslash}p{3.6cm}}
+\caption{Модульные тесты класса \texttt{StudentService}}\\
+\reporttableheader
+1 & \testname{GetStudentsByFaculty_ReturnsCorrectStudents} & Проверяет фильтрацию студентов по названию факультета. & Сервис содержит двух студентов ФИТ и одного студента другого факультета; передан ключ «ФИТ». & Возвращены ровно два элемента, и у каждого факультет равен «ФИТ». \\
+2 & \testname{GetStudentsWithMinAverageGrade_ReturnsCorrectStudents} & Проверяет отбор по минимальному среднему баллу. & Для студентов заданы различные наборы оценок; передано пороговое значение среднего балла. & Результат содержит только студентов, среднее значение оценок которых не меньше порога. \\
+3 & \testname{GetStudentsOrderedByName_ReturnsStudentsInAlphabeticalOrder} & Подтверждает сортировку по имени в алфавитном порядке. & Исходная коллекция расположена не по алфавиту. & Последовательность имён в результате соответствует возрастающему лексикографическому порядку. \\
+4 & \testname{GroupStudentsByFaculty_ReturnsCorrectGroups} & Проверяет группировку в структуру \texttt{ILookup}. & В коллекции представлены два факультета с различным числом студентов. & Созданы группы «ФИТ» и «Экономика»; количество элементов в каждой группе соответствует исходным данным. \\
+5 & \testname{GetFacultyWithHighestAverageGrade_ReturnsCorrectFaculty} & Проверяет агрегирование оценок по факультетам и выбор максимума. & Студенты факультета «Экономика» имеют более высокий совокупный средний балл. & Метод возвращает строку «Экономика». \\
+\end{longtable}
+}
+
+\subsection{Тесты задания «Итераторы в C\#»}
+
+{\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{>{\centering\arraybackslash}p{0.7cm} >{\RaggedRight\arraybackslash}p{3.5cm} >{\RaggedRight\arraybackslash}p{4.1cm} >{\RaggedRight\arraybackslash}p{3.3cm} >{\RaggedRight\arraybackslash}p{3.6cm}}
+\caption{Модульные тесты класса \texttt{CustomCollection<T>}}\\
+\reporttableheader
+1 & \testname{CustomCollection_GetEnumerator_ReturnsAllItems} & Проверяет реализацию \texttt{IEnumerable<T>} и прямой порядок перечисления. & В пустую коллекцию последовательно добавлены числа 1 и 2. & Цикл перечисления выдаёт последовательность \{1, 2\} без потери и перестановки элементов. \\
+2 & \testname{GetReverseEnumerator_ReturnsItemsInReverseOrder} & Проверяет обратный итератор с \texttt{yield return}. & Коллекция содержит числа 1 и 2 в прямом порядке. & После материализации обратного итератора получена последовательность \{2, 1\}. \\
+3 & \testname{GenerateSequence_ReturnsCorrectSequence} & Проверяет начало, длину и шаг генерируемой числовой последовательности. & Метод вызван со значениями \texttt{start = 5} и \texttt{count = 3}. & Результат равен \{5, 6, 7\}; сформировано ровно три элемента. \\
+4 & \testname{FilterAndSort_ReturnsFilteredAndSortedItems} & Проверяет совместную работу \texttt{Where} и \texttt{OrderBy}. & Коллекция содержит \{3, 1, 2\}; предикат допускает значения больше 1. & После фильтрации и сортировки результат равен \{2, 3\}. \\
+5 & \testname{Remove_RemovesItem} & Проверяет удаление существующего элемента и сохранение остальных элементов. & Коллекция содержит числа 1 и 2; удаляется число 1. & \texttt{Remove} возвращает \texttt{true}, а коллекция содержит только число 2. \\
+\end{longtable}
+}
+
+\subsection{Тесты задания «Интерфейсы в C\#»}
+
+{\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{>{\centering\arraybackslash}p{0.7cm} >{\RaggedRight\arraybackslash}p{3.5cm} >{\RaggedRight\arraybackslash}p{4.1cm} >{\RaggedRight\arraybackslash}p{3.3cm} >{\RaggedRight\arraybackslash}p{3.6cm}}
+\caption{Модульные тесты кораблей, реализующих \texttt{ISpaceship}}\\
+\reporttableheader
+1 & \testname{Cruiser_ShouldHaveCorrectStats} & Проверяет заданные характеристики крейсера через ссылку интерфейсного типа. & Создан \texttt{Cruiser}, присвоенный переменной \texttt{ISpaceship}. & Скорость равна 50, мощность выстрела равна 100. \\
+2 & \testname{Fighter_ShouldBeFasterThanCruiser} & Проверяет заявленное различие скоростей двух типов кораблей. & Созданы новые экземпляры \texttt{Fighter} и \texttt{Cruiser}. & Значение \texttt{Fighter.Speed} строго больше \texttt{Cruiser.Speed}. \\
+3 & \testname{Fighter_ShouldHaveCorrectStats} & Проверяет характеристики истребителя через интерфейс. & Создан \texttt{Fighter}, доступный как \texttt{ISpaceship}. & Скорость равна 100, мощность выстрела равна 50. \\
+4 & \testname{Cruiser_ShouldHaveMoreFirePowerThanFighter} & Подтверждает преимущество крейсера по мощности ракет. & Созданы экземпляры обоих классов. & \texttt{Cruiser.FirePower} строго больше \codebreak{Fighter.FirePower}. \\
+5 & \testname{MoveForward_ShouldIncreaseDistanceBySpeed} & Проверяет наблюдаемый эффект команды движения. & Новый крейсер имеет нулевое пройденное расстояние. & После одного вызова \texttt{MoveForward} расстояние равно скорости крейсера, то есть 50. \\
+6 & \testname{Rotate_ShouldChangeRotationAngle} & Проверяет изменение ориентации корабля. & Новый истребитель имеет нулевой угол; передан поворот 90 градусов. & После вызова \texttt{Rotate} угол равен 90 градусам. \\
+7 & \testname{Fire_ShouldIncreaseFiredRocketsCount} & Проверяет накопление числа выполненных выстрелов. & Новый крейсер не выпустил ни одной ракеты. & После двух вызовов \texttt{Fire} счётчик равен 2. \\
+8 & \testname{CruiserAndFighter_ShouldImplementISpaceship} & Проверяет соответствие обоих классов общему контракту. & Созданы экземпляры крейсера и истребителя. & Оба объекта допускают приведение к \texttt{ISpaceship}. \\
+\end{longtable}
+}
+
+\subsection{Тесты задания «Изучение класса с помощью рефлексии»}
+
+{\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{>{\centering\arraybackslash}p{0.7cm} >{\RaggedRight\arraybackslash}p{3.5cm} >{\RaggedRight\arraybackslash}p{4.1cm} >{\RaggedRight\arraybackslash}p{3.3cm} >{\RaggedRight\arraybackslash}p{3.6cm}}
+\caption{Модульные тесты класса \texttt{ClassAnalyzer}}\\
+\reporttableheader
+1 & \testname{GetPublicMethods_ReturnsCorrectMethods} & Проверяет выбор публичных экземплярных и статических методов и исключение приватного метода. & Анализатор создан для \texttt{TestClass}, содержащего три публичных и один приватный метод. & Результат содержит \texttt{Method}, \texttt{MethodWithParams}, \texttt{StaticMethod} и не содержит \texttt{PrivateMethod}. \\
+2 & \testname{GetMethodParams_ReturnsParameterNamesAndReturnType} & Проверяет получение имён параметров и имени возвращаемого типа. & В \texttt{TestClass} имеется метод с параметрами \texttt{name}, \texttt{age}, возвращающий \texttt{string}. & Получена последовательность \{\texttt{name}, \texttt{age}, \texttt{String}\}. \\
+3 & \testname{GetMethodParams_WhenMethodDoesNotExist_ReturnsEmptyResult} & Покрывает запрос сведений о несуществующем методе. & Анализатору передано имя \texttt{UnknownMethod}, отсутствующее в типе. & Возвращается пустая последовательность; исключение не возникает. \\
+4 & \testname{GetAllFields_IncludesPublicAndPrivateFields} & Проверяет применение флагов \texttt{Public} и \texttt{NonPublic}. & Анализируемый класс содержит \texttt{PublicField} и \texttt{\_privateField}. & В результате присутствуют имена обоих полей независимо от модификатора доступа. \\
+5 & \testname{GetProperties_ReturnsPropertyNames} & Проверяет получение имени публичного свойства. & В \texttt{TestClass} определено свойство \texttt{Property}. & Последовательность свойств содержит строку \texttt{Property}. \\
+6 & \testname{HasAttribute_WhenAttributeExists_ReturnsTrue} & Проверяет обнаружение атрибута класса. & Анализируется тип \texttt{AttributedClass}, отмеченный \codebreak{SerializableAttribute}. & \codebreak{HasAttribute<SerializableAttribute>} возвращает \texttt{true}. \\
+7 & \testname{HasAttribute_WhenAttributeDoesNotExist_ReturnsFalse} & Проверяет отрицательный сценарий поиска атрибута. & Анализируется \texttt{TestClass}, не имеющий атрибута сериализации. & Метод возвращает \texttt{false}. \\
+\end{longtable}
+}
+
+Таким образом, полный набор включает 32 теста: 27 тестов xUnit и 5 тестов NUnit. Использование NUnit во втором задании обусловлено типом созданного тестового проекта; назначение проверок при этом соответствует общему принципу модульного тестирования.
