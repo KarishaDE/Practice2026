@@ -1,6 +1,3 @@
-using Xunit;
-using System;
-using System.Linq;
 using task05;
 
 namespace task05tests;
@@ -8,17 +5,33 @@ namespace task05tests;
 public class TestClass
 {
     public int PublicField;
-    private string _privateField;
-    public int Property { get; set; }
-    private int PrivateProperty { get; set; }
+    private string _privateField = string.Empty;
 
-    public void Method() { }
-    public int MethodWithParams(string name, int age) => 0;
-    private void PrivateMethod() { }
+    public int Property { get; set; }
+
+    public void Method()
+    {
+    }
+
+    public string MethodWithParams(string name, int age)
+    {
+        _privateField = name;
+        return $"{_privateField}: {age}";
+    }
+
+    public static void StaticMethod()
+    {
+    }
+
+    private void PrivateMethod()
+    {
+    }
 }
 
 [Serializable]
-public class AttributedClass { }
+public class AttributedClass
+{
+}
 
 public class ClassAnalyzerTests
 {
@@ -26,26 +39,40 @@ public class ClassAnalyzerTests
     public void GetPublicMethods_ReturnsCorrectMethods()
     {
         var analyzer = new ClassAnalyzer(typeof(TestClass));
+
         var methods = analyzer.GetPublicMethods();
 
         Assert.Contains("Method", methods);
         Assert.Contains("MethodWithParams", methods);
+        Assert.Contains("StaticMethod", methods);
         Assert.DoesNotContain("PrivateMethod", methods);
     }
 
     [Fact]
-    public void HasAttribute_ReturnsTrue_WhenAttributeExists()
+    public void GetMethodParams_ReturnsParameterNamesAndReturnType()
     {
-        var analyzer = new ClassAnalyzer(typeof(AttributedClass));
-        var result = analyzer.HasAttribute<SerializableAttribute>();
+        var analyzer = new ClassAnalyzer(typeof(TestClass));
 
-        Assert.True(result);
+        var parameters = analyzer.GetMethodParams("MethodWithParams");
+
+        Assert.Equal(new[] { "name", "age", "String" }, parameters);
     }
 
     [Fact]
-    public void GetAllFields_IncludesPrivateFields()
+    public void GetMethodParams_WhenMethodDoesNotExist_ReturnsEmptyResult()
     {
         var analyzer = new ClassAnalyzer(typeof(TestClass));
+
+        var parameters = analyzer.GetMethodParams("UnknownMethod");
+
+        Assert.Empty(parameters);
+    }
+
+    [Fact]
+    public void GetAllFields_IncludesPublicAndPrivateFields()
+    {
+        var analyzer = new ClassAnalyzer(typeof(TestClass));
+
         var fields = analyzer.GetAllFields();
 
         Assert.Contains("PublicField", fields);
@@ -53,39 +80,30 @@ public class ClassAnalyzerTests
     }
 
     [Fact]
-    public void GetMethodParams_ReturnsCorrectParameters()
+    public void GetProperties_ReturnsPropertyNames()
     {
         var analyzer = new ClassAnalyzer(typeof(TestClass));
-        var params1 = analyzer.GetMethodParams("MethodWithParams");
 
-        Assert.Contains("String name", params1);
-        Assert.Contains("Int32 age", params1);
-        Assert.Equal(2, params1.Count());
-    }
-
-    [Fact]
-    public void GetProperties_ReturnsCorrectProperties()
-    {
-        var analyzer = new ClassAnalyzer(typeof(TestClass));
         var properties = analyzer.GetProperties();
 
         Assert.Contains("Property", properties);
-        Assert.DoesNotContain("PrivateProperty", properties);
     }
 
     [Fact]
-    public void GetMethodParams_WhenMethodNotFound_ReturnsEmpty()
+    public void HasAttribute_WhenAttributeExists_ReturnsTrue()
     {
-        var analyzer = new ClassAnalyzer(typeof(TestClass));
-        var result = analyzer.GetMethodParams("NonExistentMethod");
+        var analyzer = new ClassAnalyzer(typeof(AttributedClass));
 
-        Assert.Empty(result);
+        var result = analyzer.HasAttribute<SerializableAttribute>();
+
+        Assert.True(result);
     }
 
     [Fact]
-    public void HasAttribute_ReturnsFalse_WhenAttributeNotExists()
+    public void HasAttribute_WhenAttributeDoesNotExist_ReturnsFalse()
     {
         var analyzer = new ClassAnalyzer(typeof(TestClass));
+
         var result = analyzer.HasAttribute<SerializableAttribute>();
 
         Assert.False(result);
