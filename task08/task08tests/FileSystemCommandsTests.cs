@@ -1,62 +1,113 @@
-using Xunit;
-using System;
-using System.IO;
+using CommandLib;
+using CommandRunner;
 using FileSystemCommands;
 
 namespace task08tests;
 
 public class FileSystemCommandsTests
 {
-    private string CreateTempFolder()
-    {
-        string folderPath = Path.Combine(Path.GetTempPath(), "TestFolder_" + Guid.NewGuid().ToString());
-        Directory.CreateDirectory(folderPath);
-        return folderPath;
-    }
-
     [Fact]
     public void DirectorySizeCommand_ShouldCalculateSize()
     {
-        var testDir = Path.Combine(Path.GetTempPath(), "TestDir");
-        Directory.CreateDirectory(testDir);
-        File.WriteAllText(Path.Combine(testDir, "test1.txt"), "Hello");
-        File.WriteAllText(Path.Combine(testDir, "test2.txt"), "World");
+        var testDirectory = CreateTestDirectory();
 
-        var command = new DirectorySizeCommand(testDir);
-        command.Execute();
+        try
+        {
+            File.WriteAllBytes(Path.Combine(testDirectory, "test1.txt"), new byte[5]);
+            File.WriteAllBytes(Path.Combine(testDirectory, "test2.txt"), new byte[7]);
 
-        Directory.Delete(testDir, true);
+            var result = ExecuteAndReadOutput(new DirectorySizeCommand(testDirectory));
+
+            Assert.Contains("Размер каталога: 12 байт", result);
+        }
+        finally
+        {
+            Directory.Delete(testDirectory, true);
+        }
+    }
+
+    [Fact]
+    public void DirectorySizeCommand_ShouldIncludeSubdirectories()
+    {
+        var testDirectory = CreateTestDirectory();
+
+        try
+        {
+            var subdirectory = Directory.CreateDirectory(
+                Path.Combine(testDirectory, "subdirectory"));
+            File.WriteAllBytes(Path.Combine(subdirectory.FullName, "file.txt"), new byte[8]);
+
+            var result = ExecuteAndReadOutput(new DirectorySizeCommand(testDirectory));
+
+            Assert.Contains("Размер каталога: 8 байт", result);
+        }
+        finally
+        {
+            Directory.Delete(testDirectory, true);
+        }
     }
 
     [Fact]
     public void FindFilesCommand_ShouldFindMatchingFiles()
     {
-        var testDir = Path.Combine(Path.GetTempPath(), "TestDir");
-        Directory.CreateDirectory(testDir);
-        File.WriteAllText(Path.Combine(testDir, "file1.txt"), "Text");
-        File.WriteAllText(Path.Combine(testDir, "file2.log"), "Log");
+        var testDirectory = CreateTestDirectory();
 
-        var command = new FindFilesCommand(testDir, "*.txt");
-        command.Execute();
+        try
+        {
+            var textFile = Path.Combine(testDirectory, "file1.txt");
+            var logFile = Path.Combine(testDirectory, "file2.log");
+            File.WriteAllText(textFile, "Text");
+            File.WriteAllText(logFile, "Log");
 
-        Directory.Delete(testDir, true);
+            var result = ExecuteAndReadOutput(
+                new FindFilesCommand(testDirectory, "*.txt"));
+
+            Assert.Contains("Найдено файлов: 1", result);
+            Assert.Contains(textFile, result);
+            Assert.DoesNotContain(logFile, result);
+        }
+        finally
+        {
+            Directory.Delete(testDirectory, true);
+        }
     }
 
     [Fact]
-    public void DirectorySizeCommand_ShouldHandleMissingFolder()
+    public void CommandLoader_ShouldLoadCommandFromLibrary()
     {
-        string missingPath = Path.Combine(Path.GetTempPath(), "MissingFolder_" + Guid.NewGuid().ToString());
-        var command = new DirectorySizeCommand(missingPath);
-        Exception caughtException = Record.Exception(() => command.Execute());
-        Assert.Null(caughtException);
+        var libraryPath = typeof(DirectorySizeCommand).Assembly.Location;
+
+        var command = CommandLoader.Load(
+            libraryPath,
+            "FileSystemCommands.DirectorySizeCommand",
+            Path.GetTempPath());
+
+        Assert.IsType<DirectorySizeCommand>(command);
+        Assert.IsAssignableFrom<ICommand>(command);
     }
 
-    [Fact]
-    public void FindFilesCommand_ShouldHandleMissingFolder()
+    private static string CreateTestDirectory()
     {
-        string missingPath = Path.Combine(Path.GetTempPath(), "MissingFolder_" + Guid.NewGuid().ToString());
-        var command = new FindFilesCommand(missingPath, "*.txt");
-        Exception caughtException = Record.Exception(() => command.Execute());
-        Assert.Null(caughtException);
+        var path = Path.Combine(Path.GetTempPath(), $"task08_{Guid.NewGuid()}");
+        Directory.CreateDirectory(path);
+        return path;
+    }
+
+    private static string ExecuteAndReadOutput(ICommand command)
+    {
+        var originalOutput = Console.Out;
+        using var output = new StringWriter();
+
+        try
+        {
+            Console.SetOut(output);
+            command.Execute();
+        }
+        finally
+        {
+            Console.SetOut(originalOutput);
+        }
+
+        return output.ToString();
     }
 }

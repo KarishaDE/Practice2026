@@ -2,6 +2,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CommandLib\CommandLib.csproj" />
+    <ProjectReference Include="..\FileSystemCommands\FileSystemCommands.csproj"
+                      ReferenceOutputAssembly="false" />
   </ItemGroup>
 
   <PropertyGroup>
@@ -10,5 +12,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <Target Name="CopyCommandsLibrary" AfterTargets="Build">
+    <Copy SourceFiles="$(MSBuildProjectDirectory)/../FileSystemCommands/bin/$(Configuration)/$(TargetFramework)/FileSystemCommands.dll"
+          DestinationFolder="$(OutDir)" />
+  </Target>
 
 </Project>
