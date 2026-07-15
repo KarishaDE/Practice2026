@@ -1,4 +1,3 @@
-using Xunit;
 using task01;
 
 namespace task01tests;
@@ -6,58 +5,58 @@ namespace task01tests;
 public class StringExtensionsTests
 {
     [Fact]
-    public void CheckPalindrome_ShouldReturnTrueForValidPhrase()
+    public void IsPalindrome_RussianPhrase_ReturnsTrue()
     {
-        string text = "Казак";
-        bool result = text.IsPalindrome();
-        Assert.True(result);
+        string input = "А роза упала на лапу Азора";
+
+        Assert.True(input.IsPalindrome());
     }
 
     [Fact]
-    public void CheckPalindrome_ShouldReturnTrueForComplexPhrase()
+    public void IsPalindrome_NotPalindrome_ReturnsFalse()
     {
-        string text = "Sum summus mus";
-        bool result = text.IsPalindrome();
-        Assert.True(result);
+        string input = "Hello, world!";
+
+        Assert.False(input.IsPalindrome());
     }
 
     [Fact]
-    public void CheckPalindrome_ShouldReturnFalseForInvalidPhrase()
+    public void IsPalindrome_EmptyString_ReturnsFalse()
     {
-        string text = "qwerty";
-        bool result = text.IsPalindrome();
-        Assert.False(result);
+        string input = string.Empty;
+
+        Assert.False(input.IsPalindrome());
     }
 
     [Fact]
-    public void CheckPalindrome_ShouldReturnFalseForEmptyString()
+    public void IsPalindrome_WithPunctuation_IgnoresPunctuation()
     {
-        string text = "";
-        bool result = text.IsPalindrome();
-        Assert.False(result);
+        string input = "Was it a car or a cat I saw?";
+
+        Assert.True(input.IsPalindrome());
     }
 
     [Fact]
-    public void CheckPalindrome_ShouldReturnTrueWithPunctuation()
+    public void IsPalindrome_DifferentLetterCase_IgnoresCase()
     {
-        string text = "Madam, I'm Adam";
-        bool result = text.IsPalindrome();
-        Assert.True(result);
+        string input = "LeVEl";
+
+        Assert.True(input.IsPalindrome());
     }
 
     [Fact]
-    public void CheckPalindrome_ShouldReturnTrueForNumericPalindrome()
+    public void IsPalindrome_OnlyWhitespace_ReturnsFalse()
     {
-        string text = "123454321";
-        bool result = text.IsPalindrome();
-        Assert.True(result);
+        string input = "   \t\r\n";
+
+        Assert.False(input.IsPalindrome());
     }
 
     [Fact]
-    public void CheckPalindrome_ShouldReturnTrueForSingleCharacter()
+    public void IsPalindrome_OnlyPunctuation_ReturnsFalse()
     {
-        string text = "a";
-        bool result = text.IsPalindrome();
-        Assert.True(result);
+        string input = "...!";
+
+        Assert.False(input.IsPalindrome());
     }
 }
