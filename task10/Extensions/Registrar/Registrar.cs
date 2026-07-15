@@ -1,13 +1,13 @@
-﻿using System;
+using CommandLib;
 using Core;
 
 namespace Registrar;
 
-[Hook]
-public class Registrar : IExecutable
+[PluginLoad]
+public class Registrar : ICommand
 {
-    public void Run()
+    public void Execute()
     {
-        Console.WriteLine("[REG] Регистратор активирован");
+        Console.WriteLine("Регистратор загружен");
     }
 }

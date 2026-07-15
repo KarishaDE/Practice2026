@@ -1,22 +1,17 @@
-﻿using System;
-
 namespace Core;
 
-public interface IExecutable
+[AttributeUsage(AttributeTargets.Class)]
+public sealed class PluginLoadAttribute : Attribute
 {
-    void Run();
 }
 
-[AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-public sealed class HookAttribute : Attribute { }
-
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-public sealed class AfterAttribute : Attribute
+public sealed class PluginDependencyAttribute : Attribute
 {
-    public Type Target { get; }
-
-    public AfterAttribute(Type target)
+    public PluginDependencyAttribute(Type pluginType)
     {
-        Target = target;
+        PluginType = pluginType;
     }
+
+    public Type PluginType { get; }
 }

@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Core.csproj" />
+    <ProjectReference Include="..\..\..\task08\CommandLib\CommandLib.csproj" />
     <ProjectReference Include="..\StorageService\StorageService.csproj" />
   </ItemGroup>
 

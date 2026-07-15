@@ -1,14 +1,14 @@
-﻿using System;
+using CommandLib;
 using Core;
 
 namespace StorageService;
 
-[Hook]
-[After(typeof(Registrar.Registrar))]
-public class StorageService : IExecutable
+[PluginLoad]
+[PluginDependency(typeof(Registrar.Registrar))]
+public class StorageService : ICommand
 {
-    public void Run()
+    public void Execute()
     {
-        Console.WriteLine("[STORAGE] Хранилище готово к работе");
+        Console.WriteLine("Хранилище загружено");
     }
 }

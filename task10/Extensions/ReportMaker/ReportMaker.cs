@@ -1,14 +1,14 @@
-﻿using System;
+using CommandLib;
 using Core;
 
 namespace ReportMaker;
 
-[Hook]
-[After(typeof(StorageService.StorageService))]
-public class ReportMaker : IExecutable
+[PluginLoad]
+[PluginDependency(typeof(StorageService.StorageService))]
+public class ReportMaker : ICommand
 {
-    public void Run()
+    public void Execute()
     {
-        Console.WriteLine("[REPORT] Генератор отчётов запущен");
+        Console.WriteLine("Генератор отчётов загружен");
     }
 }
