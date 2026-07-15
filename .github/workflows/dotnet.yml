@@ -2,9 +2,9 @@ name: .NET CI
 
 on:
   push:
-    branches: [ main, task01, task02, task03, task04, task05, task07, task09, task10, task11, task13, task14, task15 ]
+    branches: [ main, task01, task02, task03, task04, task05, task07, task09, task10, task11, task13, task14, task15, report-week3 ]
   pull_request:
-    branches: [ main, task01, task02, task03, task04, task05, task07, task09, task10, task11, task13, task14 ]
+    branches: [ main, task01, task02, task03, task04, task05, task07, task09, task10, task11, task13, task14, task15 ]
 
 jobs:
   build:

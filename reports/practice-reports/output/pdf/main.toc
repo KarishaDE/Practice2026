@@ -1,0 +1,38 @@
+\babel@toc {russian}{}\relax 
+\contentsline {section}{Введение}{4}{Doc-Start}%
+\contentsline {section}{\numberline {1}Рефлексивный анализ выполненных заданий}{5}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Написание функции-расширения}{5}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Введение в LINQ}{5}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Итераторы в C\#}{6}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Интерфейсы в C\#}{7}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.5}Изучение класса с помощью рефлексии}{8}{subsection.1.5}%
+\contentsline {section}{\numberline {2}Перечень и назначение модульных тестов}{9}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Тесты задания «Написание функции-расширения»}{9}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Тесты задания «Введение в LINQ»}{10}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Тесты задания «Итераторы в C\#»}{10}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Тесты задания «Интерфейсы в C\#»}{11}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Тесты задания «Изучение класса с помощью рефлексии»}{12}{subsection.2.5}%
+\contentsline {section}{\numberline {3}Анализ роли модульного тестирования}{14}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Задачи, решаемые модульными тестами}{14}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Влияние разработки через тесты на скорость работы}{15}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Основания идеи модульных тестов}{16}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Ограничения выполненного тестирования}{17}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Второй промежуточный отчёт}{18}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Атрибуты классов и рефлексия в C\#}{18}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Динамические библиотеки}{20}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Метаданные библиотеки классов}{21}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Система плагинов}{22}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Генерация классов во время выполнения программы}{23}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Задачи генерации во время компиляции и выполнения}{24}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}Статическая и динамическая компоновка}{24}{subsection.4.7}%
+\contentsline {subsection}{\numberline {4.8}Влияние системы плагинов на архитектуру}{25}{subsection.4.8}%
+\contentsline {subsection}{\numberline {4.9}Риски безопасности и способы их снижения}{26}{subsection.4.9}%
+\contentsline {subsection}{\numberline {4.10}Примеры систем плагинов}{27}{subsection.4.10}%
+\contentsline {subsection}{\numberline {4.11}Итоги рефлексивного анализа второй недели}{28}{subsection.4.11}%
+\contentsline {section}{\numberline {5}Третий промежуточный отчёт}{29}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Сериализация и десериализация объектов}{29}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Знакомство с потоками}{30}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Определение оптимальных параметров алгоритма}{31}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Описание и интерпретация результатов эксперимента}{32}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Свойства задачи, допускающие многопоточное решение}{35}{subsection.5.5}%
+\contentsline {section}{Список использованных источников}{36}{subsection.5.5}%
