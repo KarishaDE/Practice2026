@@ -1,39 +1,37 @@
-﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace task03;
 
 public class CustomCollection<T> : IEnumerable<T>
 {
-    private readonly List<T> _storage = new();
+    private readonly List<T> _items = new();
 
-    public void AddElement(T element) => _storage.Add(element);
-    public bool DeleteElement(T element) => _storage.Remove(element);
-    public int ElementsCount => _storage.Count;
+    public void Add(T item) => _items.Add(item);
 
-    public IEnumerator<T> GetEnumerator() => _storage.GetEnumerator();
+    public bool Remove(T item) => _items.Remove(item);
+
+    public IEnumerator<T> GetEnumerator() => _items.GetEnumerator();
+
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-    public IEnumerable<T> GetReverse()
+    public IEnumerable<T> GetReverseEnumerator()
     {
-        for (int index = _storage.Count - 1; index >= 0; index--)
+        for (int i = _items.Count - 1; i >= 0; i--)
         {
-            yield return _storage[index];
+            yield return _items[i];
         }
     }
 
-    public static IEnumerable<int> CreateNumberRange(int start, int quantity)
+    public static IEnumerable<int> GenerateSequence(int start, int count)
     {
-        for (int i = 0; i < quantity; i++)
+        for (int i = 0; i < count; i++)
         {
             yield return start + i;
         }
     }
 
-    public IEnumerable<T> ApplyFilterAndOrder(Func<T, bool> condition, Func<T, IComparable> orderKey)
-    {
-        return _storage.Where(condition).OrderBy(orderKey);
-    }
+    public IEnumerable<T> FilterAndSort(
+        Func<T, bool> predicate,
+        Func<T, IComparable> keySelector)
+        => _items.Where(predicate).OrderBy(keySelector);
 }

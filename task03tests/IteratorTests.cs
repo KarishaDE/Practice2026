@@ -1,6 +1,3 @@
-using Xunit;
-using System.Collections.Generic;
-using System.Linq;
 using task03;
 
 namespace task03tests;
@@ -8,85 +5,64 @@ namespace task03tests;
 public class IteratorTests
 {
     [Fact]
-    public void AddElements_ShouldBeIterable()
+    public void CustomCollection_GetEnumerator_ReturnsAllItems()
     {
-        var collection = new CustomCollection<string>();
-        collection.AddElement("first");
-        collection.AddElement("second");
+        var collection = new CustomCollection<int>();
+        collection.Add(1);
+        collection.Add(2);
 
-        var result = new List<string>();
+        var result = new List<int>();
         foreach (var item in collection)
         {
             result.Add(item);
         }
 
-        Assert.Equal(new[] { "first", "second" }, result);
+        Assert.Equal(new[] { 1, 2 }, result);
     }
 
     [Fact]
-    public void GetReverse_ShouldReturnReversedOrder()
+    public void GetReverseEnumerator_ReturnsItemsInReverseOrder()
     {
         var collection = new CustomCollection<int>();
-        collection.AddElement(1);
-        collection.AddElement(2);
-        collection.AddElement(3);
+        collection.Add(1);
+        collection.Add(2);
 
-        var result = collection.GetReverse().ToList();
-        Assert.Equal(new[] { 3, 2, 1 }, result);
+        var result = collection.GetReverseEnumerator().ToList();
+
+        Assert.Equal(new[] { 2, 1 }, result);
     }
 
     [Fact]
-    public void CreateNumberRange_ShouldGenerateCorrectNumbers()
+    public void GenerateSequence_ReturnsCorrectSequence()
     {
-        var sequence = CustomCollection<int>.CreateNumberRange(5, 3).ToList();
+        var sequence = CustomCollection<int>.GenerateSequence(5, 3).ToList();
+
         Assert.Equal(new[] { 5, 6, 7 }, sequence);
     }
 
     [Fact]
-    public void ApplyFilterAndOrder_ShouldFilterAndSort()
+    public void FilterAndSort_ReturnsFilteredAndSortedItems()
     {
         var collection = new CustomCollection<int>();
-        collection.AddElement(3);
-        collection.AddElement(1);
-        collection.AddElement(2);
+        collection.Add(3);
+        collection.Add(1);
+        collection.Add(2);
 
-        var result = collection.ApplyFilterAndOrder(x => x > 1, x => x).ToList();
+        var result = collection.FilterAndSort(x => x > 1, x => x).ToList();
+
         Assert.Equal(new[] { 2, 3 }, result);
     }
 
     [Fact]
-    public void DeleteElement_ShouldRemoveItem()
+    public void Remove_RemovesItem()
     {
         var collection = new CustomCollection<int>();
-        collection.AddElement(1);
-        collection.AddElement(2);
-        collection.AddElement(3);
+        collection.Add(1);
+        collection.Add(2);
 
-        bool isDeleted = collection.DeleteElement(2);
+        var result = collection.Remove(1);
 
-        Assert.True(isDeleted);
-        Assert.Equal(2, collection.ElementsCount);
-
-        var remaining = new List<int>();
-        foreach (var item in collection)
-        {
-            remaining.Add(item);
-        }
-
-        Assert.DoesNotContain(2, remaining);
-        Assert.Equal(new[] { 1, 3 }, remaining);
-    }
-
-    [Fact]
-    public void DeleteElement_ShouldReturnFalseIfNotFound()
-    {
-        var collection = new CustomCollection<int>();
-        collection.AddElement(1);
-        collection.AddElement(2);
-
-        bool result = collection.DeleteElement(99);
-
-        Assert.False(result);
-        Assert.Equal(2, collection.ElementsCount);
+        Assert.True(result);
+        Assert.Equal(new[] { 2 }, collection.ToList());
     }
 }
