@@ -1,45 +1,32 @@
-﻿using System;
-using Core;
 using Discoverer;
 
-class Program
+var directory = args.Length > 0
+    ? args[0]
+    : Path.Combine(AppContext.BaseDirectory, "Plugins");
+
+try
 {
-    static void Main(string[] args)
+    var manager = new PluginManager();
+    var plugins = manager.Discover(directory);
+
+    if (plugins.Count == 0)
     {
-        var folder = args.Length > 0 ? args[0] : ".";
-
-        var mgr = new ExtensionManager();
-
-        try
-        {
-            mgr.Scan(folder);
-
-            if (mgr.Candidates.Count == 0)
-            {
-                Console.WriteLine("Расширения не обнаружены");
-                return;
-            }
-
-            Console.WriteLine("Обнаружены расширения:");
-            foreach (var t in mgr.Candidates)
-                Console.WriteLine($"  {t.FullName}");
-
-            Console.WriteLine();
-
-            var ordered = mgr.BuildOrder();
-
-            Console.WriteLine("Порядок активации:");
-            foreach (var t in ordered)
-                Console.WriteLine($"  {t.FullName}");
-
-            Console.WriteLine();
-
-            var instances = mgr.Instantiate(ordered);
-            mgr.ExecuteAll(instances);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Ошибка: {ex.Message}");
-        }
+        Console.WriteLine("Плагины не найдены");
+        return;
     }
+
+    var loadOrder = manager.BuildLoadOrder();
+
+    Console.WriteLine("Порядок загрузки плагинов:");
+    foreach (var plugin in loadOrder)
+    {
+        Console.WriteLine(plugin.FullName);
+    }
+
+    var commands = manager.CreateCommands(loadOrder);
+    manager.ExecuteAll(commands);
+}
+catch (Exception exception)
+{
+    Console.WriteLine($"Ошибка: {exception.Message}");
 }

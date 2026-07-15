@@ -3,6 +3,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Discoverer\Discoverer.csproj" />
     <ProjectReference Include="..\Core\Core.csproj" />
+    <ProjectReference Include="..\Extensions\Registrar\Registrar.csproj" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\Extensions\StorageService\StorageService.csproj" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\Extensions\ReportMaker\ReportMaker.csproj" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
   <PropertyGroup>
@@ -11,5 +14,14 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <Target Name="CopyPlugins" AfterTargets="Build">
+    <ItemGroup>
+      <PluginFiles Include="..\Extensions\Registrar\bin\$(Configuration)\net8.0\Registrar.dll" />
+      <PluginFiles Include="..\Extensions\StorageService\bin\$(Configuration)\net8.0\StorageService.dll" />
+      <PluginFiles Include="..\Extensions\ReportMaker\bin\$(Configuration)\net8.0\ReportMaker.dll" />
+    </ItemGroup>
+    <Copy SourceFiles="@(PluginFiles)" DestinationFolder="$(OutDir)Plugins" />
+  </Target>
 
 </Project>
