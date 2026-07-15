@@ -4,6 +4,29 @@ namespace task14;
 
 public static class DefiniteIntegral
 {
+    public static double SolveSingleThread(
+        double a,
+        double b,
+        Func<double, double> function,
+        double step)
+    {
+        ValidateArguments(a, b, function, step, 1);
+
+        if (a == b)
+        {
+            return 0.0;
+        }
+
+        var sign = 1.0;
+        if (a > b)
+        {
+            (a, b) = (b, a);
+            sign = -1.0;
+        }
+
+        return sign * SolveSegment(a, b, function, step);
+    }
+
     public static double Solve(
         double a,
         double b,
