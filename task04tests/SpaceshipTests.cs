@@ -1,4 +1,3 @@
-using Xunit;
 using task04;
 
 namespace task04tests;
@@ -6,87 +5,76 @@ namespace task04tests;
 public class SpaceshipTests
 {
     [Fact]
-    public void Cruiser_SpeedAndPower_ShouldBeCorrect()
+    public void Cruiser_ShouldHaveCorrectStats()
     {
         ISpaceship cruiser = new Cruiser();
+
         Assert.Equal(50, cruiser.Speed);
         Assert.Equal(100, cruiser.FirePower);
     }
 
     [Fact]
-    public void Cruiser_ImplementsISpaceship()
+    public void Fighter_ShouldBeFasterThanCruiser()
     {
+        var fighter = new Fighter();
         var cruiser = new Cruiser();
-        Assert.IsAssignableFrom<ISpaceship>(cruiser);
+
+        Assert.True(fighter.Speed > cruiser.Speed);
     }
 
     [Fact]
-    public void Fighter_SpeedAndPower_ShouldBeCorrect()
+    public void Fighter_ShouldHaveCorrectStats()
     {
         ISpaceship fighter = new Fighter();
+
         Assert.Equal(100, fighter.Speed);
         Assert.Equal(50, fighter.FirePower);
     }
 
     [Fact]
-    public void Fighter_ImplementsISpaceship()
-    {
-        var fighter = new Fighter();
-        Assert.IsAssignableFrom<ISpaceship>(fighter);
-    }
-
-    [Fact]
-    public void Fighter_SpeedGreaterThanCruiser_ShouldBeTrue()
-    {
-        var fighter = new Fighter();
-        var cruiser = new Cruiser();
-        Assert.True(fighter.Speed > cruiser.Speed);
-    }
-
-    [Fact]
-    public void Cruiser_FirePowerGreaterThanFighter_ShouldBeTrue()
+    public void Cruiser_ShouldHaveMoreFirePowerThanFighter()
     {
         var cruiser = new Cruiser();
         var fighter = new Fighter();
+
         Assert.True(cruiser.FirePower > fighter.FirePower);
     }
 
     [Fact]
-    public void MoveForward_ShouldExecuteWithoutErrors()
+    public void MoveForward_ShouldIncreaseDistanceBySpeed()
     {
-        ISpaceship cruiser = new Cruiser();
-        ISpaceship fighter = new Fighter();
+        var cruiser = new Cruiser();
 
-        var exception = Record.Exception(() => cruiser.MoveForward());
-        Assert.Null(exception);
+        cruiser.MoveForward();
 
-        exception = Record.Exception(() => fighter.MoveForward());
-        Assert.Null(exception);
+        Assert.Equal(50, cruiser.DistanceTraveled);
     }
 
     [Fact]
-    public void Rotate_ShouldExecuteWithoutErrors()
+    public void Rotate_ShouldChangeRotationAngle()
     {
-        ISpaceship cruiser = new Cruiser();
-        ISpaceship fighter = new Fighter();
+        var fighter = new Fighter();
 
-        var exception = Record.Exception(() => cruiser.Rotate(45));
-        Assert.Null(exception);
+        fighter.Rotate(90);
 
-        exception = Record.Exception(() => fighter.Rotate(45));
-        Assert.Null(exception);
+        Assert.Equal(90, fighter.RotationAngle);
     }
 
     [Fact]
-    public void Fire_ShouldExecuteWithoutErrors()
+    public void Fire_ShouldIncreaseFiredRocketsCount()
     {
-        ISpaceship cruiser = new Cruiser();
-        ISpaceship fighter = new Fighter();
+        var cruiser = new Cruiser();
 
-        var exception = Record.Exception(() => cruiser.Fire());
-        Assert.Null(exception);
+        cruiser.Fire();
+        cruiser.Fire();
 
-        exception = Record.Exception(() => fighter.Fire());
-        Assert.Null(exception);
+        Assert.Equal(2, cruiser.FiredRockets);
+    }
+
+    [Fact]
+    public void CruiserAndFighter_ShouldImplementISpaceship()
+    {
+        Assert.IsAssignableFrom<ISpaceship>(new Cruiser());
+        Assert.IsAssignableFrom<ISpaceship>(new Fighter());
     }
 }
