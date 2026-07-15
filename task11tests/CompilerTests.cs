@@ -59,6 +59,37 @@ public class CompilerTests
     public void Compiler_ShouldReturnNonNullInstance()
     {
         var calc = DynamicCompiler.CompileAndCreate();
+
         Assert.NotNull(calc);
+        Assert.IsAssignableFrom<ICalculator>(calc);
+    }
+
+    [Fact]
+    public void CompileAndCreate_UsesCalculatorFromSourceString()
+    {
+        const string sourceCode = """
+            using task11;
+
+            public class Calculator : ICalculator
+            {
+                public int Add(int a, int b) => 100;
+                public int Minus(int a, int b) => a - b;
+                public int Mul(int a, int b) => a * b;
+                public int Div(int a, int b) => a / b;
+            }
+            """;
+
+        var calc = DynamicCompiler.CompileAndCreate(sourceCode);
+
+        Assert.Equal(100, calc.Add(1, 2));
+    }
+
+    [Fact]
+    public void CompileAndCreate_WithInvalidSource_ThrowsException()
+    {
+        const string invalidSource = "public class Calculator {";
+
+        Assert.Throws<InvalidOperationException>(() =>
+            DynamicCompiler.CompileAndCreate(invalidSource));
     }
 }

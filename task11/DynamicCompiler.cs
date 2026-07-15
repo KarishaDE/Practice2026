@@ -1,6 +1,6 @@
-﻿using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
 using System.Reflection;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 
 namespace task11;
 
@@ -14,50 +14,64 @@ public interface ICalculator
 
 public static class DynamicCompiler
 {
+    public const string CalculatorSource = """
+        using task11;
+
+        public class Calculator : ICalculator
+        {
+            public int Add(int a, int b) => a + b;
+            public int Minus(int a, int b) => a - b;
+            public int Mul(int a, int b) => a * b;
+            public int Div(int a, int b) => a / b;
+        }
+        """;
+
     public static ICalculator CompileAndCreate()
     {
-        string code = @"
-            using task11;
+        return CompileAndCreate(CalculatorSource);
+    }
 
-            public class Calculator : ICalculator
-            {
-                public int Add(int a, int b) => a + b;
-                public int Minus(int a, int b) => a - b;
-                public int Mul(int a, int b) => a * b;
-                public int Div(int a, int b) => a / b;
-            }";
-
-        var syntaxTree = CSharpSyntaxTree.ParseText(code);
-        
-        var references = new[]
-        {
-            MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
-            MetadataReference.CreateFromFile(typeof(Console).Assembly.Location),
-            MetadataReference.CreateFromFile(Assembly.Load("System.Runtime").Location),
-            MetadataReference.CreateFromFile(typeof(ICalculator).Assembly.Location)
-        };
+    public static ICalculator CompileAndCreate(string sourceCode)
+    {
+        var syntaxTree = CSharpSyntaxTree.ParseText(sourceCode);
+        var references = GetReferences();
 
         var compilation = CSharpCompilation.Create(
-            "DynamicCalculator",
+            $"DynamicCalculator_{Guid.NewGuid():N}",
             new[] { syntaxTree },
             references,
             new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
 
-        using var ms = new MemoryStream();
-        var result = compilation.Emit(ms);
-        
+        using var stream = new MemoryStream();
+        var result = compilation.Emit(stream);
+
         if (!result.Success)
         {
-            var errors = string.Join("\n", result.Diagnostics
-                .Where(d => d.Severity == DiagnosticSeverity.Error)
-                .Select(d => d.GetMessage()));
-            throw new Exception($"Compilation failed:\n{errors}");
+            var errors = result.Diagnostics
+                .Where(diagnostic => diagnostic.Severity == DiagnosticSeverity.Error)
+                .Select(diagnostic => diagnostic.GetMessage());
+
+            throw new InvalidOperationException(
+                $"Не удалось скомпилировать класс:{Environment.NewLine}{string.Join(Environment.NewLine, errors)}");
         }
 
-        ms.Seek(0, SeekOrigin.Begin);
-        var assembly = Assembly.Load(ms.ToArray());
-        var type = assembly.GetType("Calculator");
-        
-        return (ICalculator)Activator.CreateInstance(type);
+        var assembly = Assembly.Load(stream.ToArray());
+        var calculatorType = assembly.GetType("Calculator")
+            ?? throw new InvalidOperationException("Класс Calculator не найден");
+        var calculator = Activator.CreateInstance(calculatorType) as ICalculator;
+
+        return calculator
+            ?? throw new InvalidOperationException("Класс Calculator не реализует ICalculator");
+    }
+
+    private static IEnumerable<MetadataReference> GetReferences()
+    {
+        var platformAssemblies = AppContext.GetData("TRUSTED_PLATFORM_ASSEMBLIES") as string
+            ?? throw new InvalidOperationException("Не найдены системные библиотеки");
+
+        return platformAssemblies
+            .Split(Path.PathSeparator)
+            .Select(path => MetadataReference.CreateFromFile(path))
+            .Append(MetadataReference.CreateFromFile(typeof(ICalculator).Assembly.Location));
     }
 }
